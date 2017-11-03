@@ -60,7 +60,11 @@ namespace ShortLifeFileCapture.Forms
                     while (Start)
                     {
                         filesNamesStrArray = Directory.GetFiles(this.TargetPathTxtBox.Text, "*", SearchOption.TopDirectoryOnly).OrderBy(m => new FileInfo(m).CreationTime).ToArray<string>();
-                        if (filesNamesStrArray.Count() != FileList.Count)
+                        if (filesNamesStrArray.Count() > FileList.Count)  
+
+                        //Is not safecheck to prove only the filenumber but the filenames
+                        //find a way to return a array of filename differences - Compare 2 array of  and return A - B
+
                         {
                             var dif = filesNamesStrArray.Except(FileList).First().ToString();
                             var sourceFile = Path.Combine(sourceDir, Path.GetFileName(dif));
@@ -95,6 +99,12 @@ namespace ShortLifeFileCapture.Forms
                                 outStream.Close();
                             }
                         }
+                        //else if (filesNamesStrArray.Count() < FileList.Count)
+                        //{
+                        //    //reinitialize the list of files stored in FileList
+                        //    FileList.Clear();
+                        //    foreach (var fileName in filesNamesStrArray) FileList.Add(fileName);
+                        //}
 
                     }
                 });
