@@ -68,6 +68,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\DataSources\ShortLifeFileCapture.Classes.FolderBrowserDialogExampleForm.datasource" />
     <None Include="Properties\Settings.settings">
@@ -82,6 +83,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Monitoring.jpg" />
+    <None Include="Resources\OpenDir2.jpg" />
+    <Content Include="Res\OpenDir.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

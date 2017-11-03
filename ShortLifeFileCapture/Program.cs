@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using ShortLifeFileCapture.Forms;
+using System;
 using System.Windows.Forms;
 
 
@@ -10,14 +8,10 @@ namespace ShortLifeFileCapture
     static class Program
     {
         /// <summary>
-        /// Der Haupteinstiegspunkt für die Anwendung.
-        /// </summary>
-       // [STAThread]
-        //static void Main()
-        //{
-        //    Application.EnableVisualStyles();
-        //    Application.SetCompatibleTextRenderingDefault(false);
-        //    Application.Run(new Classes.FolderBrowserDialogExampleForm());
-        //}
+        [STAThreadAttribute]
+        static void Main()
+        {
+            Application.Run(new MonitorDir());
+        }
     }
 }

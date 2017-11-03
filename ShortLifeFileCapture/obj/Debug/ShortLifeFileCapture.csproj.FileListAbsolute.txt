@@ -8,3 +8,13 @@ G:\work\C#\ShortLifeFileCapture\ShortLifeFileCapture\obj\Debug\ShortLifeFileCapt
 G:\work\C#\ShortLifeFileCapture\ShortLifeFileCapture\obj\Debug\ShortLifeFileCapture.exe
 G:\work\C#\ShortLifeFileCapture\ShortLifeFileCapture\obj\Debug\ShortLifeFileCapture.pdb
 G:\work\C#\ShortLifeFileCapture\ShortLifeFileCapture\obj\Debug\ShortLifeFileCapture.Forms.MonitorDir.resources
+G:\work\C#\SLFC\ShortLifeFileCapture\bin\Debug\ShortLifeFileCapture.exe.config
+G:\work\C#\SLFC\ShortLifeFileCapture\bin\Debug\ShortLifeFileCapture.exe
+G:\work\C#\SLFC\ShortLifeFileCapture\bin\Debug\ShortLifeFileCapture.pdb
+G:\work\C#\SLFC\ShortLifeFileCapture\obj\Debug\ShortLifeFileCapture.csprojResolveAssemblyReference.cache
+G:\work\C#\SLFC\ShortLifeFileCapture\obj\Debug\ShortLifeFileCapture.Forms.MonitorDir.resources
+G:\work\C#\SLFC\ShortLifeFileCapture\obj\Debug\ShortLifeFileCapture.Properties.Resources.resources
+G:\work\C#\SLFC\ShortLifeFileCapture\obj\Debug\ShortLifeFileCapture.csproj.GenerateResource.Cache
+G:\work\C#\SLFC\ShortLifeFileCapture\obj\Debug\ShortLifeFileCapture.csproj.CoreCompileInputs.cache
+G:\work\C#\SLFC\ShortLifeFileCapture\obj\Debug\ShortLifeFileCapture.exe
+G:\work\C#\SLFC\ShortLifeFileCapture\obj\Debug\ShortLifeFileCapture.pdb

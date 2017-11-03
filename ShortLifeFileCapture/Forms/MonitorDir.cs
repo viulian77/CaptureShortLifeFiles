@@ -20,7 +20,7 @@ namespace ShortLifeFileCapture.Forms
         public MonitorDir()
         {
             InitializeComponent();
-            textBox1.Text = "C:\\temp";
+            TargetPathTxtBox.Text = "C:\\temp";
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -28,22 +28,22 @@ namespace ShortLifeFileCapture.Forms
             DialogResult result = folderBrowserDialog1.ShowDialog();
             if (result == DialogResult.OK)
             {
-                this.textBox1.Text = folderBrowserDialog1.SelectedPath;
+                this.TargetPathTxtBox.Text = folderBrowserDialog1.SelectedPath;
             }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            var curDir = textBox1.Text;
+            var curDir = TargetPathTxtBox.Text;
             if (Start == false)
                 Start = true;
             else
                 Start = false;
-            var files = Directory.GetFiles(this.textBox1.Text, "*", SearchOption.TopDirectoryOnly).OrderBy(f => new FileInfo(f).CreationTime);
+            var files = Directory.GetFiles(this.TargetPathTxtBox.Text, "*", SearchOption.TopDirectoryOnly).OrderBy(f => new FileInfo(f).CreationTime);
             foreach (var file in files ) { FileList.Add(file); }
             while (Start)
             {
-                files = Directory.GetFiles(this.textBox1.Text, "*", SearchOption.TopDirectoryOnly).OrderBy(f => new FileInfo(f).CreationTime);
+                files = Directory.GetFiles(this.TargetPathTxtBox.Text, "*", SearchOption.TopDirectoryOnly).OrderBy(f => new FileInfo(f).CreationTime);
                 if ( files.Count() != FileList.Count)
                 {
                     // Copy file in temp
