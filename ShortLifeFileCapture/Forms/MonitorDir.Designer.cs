@@ -73,7 +73,7 @@ namespace ShortLifeFileCapture.Forms
             this.TargetDirBtn.Size = new System.Drawing.Size(32, 23);
             this.TargetDirBtn.TabIndex = 0;
             this.TargetDirBtn.UseVisualStyleBackColor = true;
-            this.TargetDirBtn.Click += new System.EventHandler(this.button1_Click);
+            this.TargetDirBtn.Click += new System.EventHandler(this.ChooseDirBtn_Click);
             // 
             // folderBrowserDialogExampleFormBindingSource
             // 

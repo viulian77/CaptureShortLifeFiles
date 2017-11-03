@@ -27,7 +27,7 @@ namespace ShortLifeFileCapture.Forms
             TargetPathTxtBox.Text = sourceDir;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void ChooseDirBtn_Click(object sender, EventArgs e)
         {
             DialogResult result = folderBrowserDialog1.ShowDialog();
             if (result == DialogResult.OK)
@@ -54,32 +54,30 @@ namespace ShortLifeFileCapture.Forms
             FileStream inStream, outStream;
             filesNamesStrArray = Directory.GetFiles(this.TargetPathTxtBox.Text, "*", SearchOption.TopDirectoryOnly).OrderBy(m => new FileInfo(m).CreationTime).ToArray<string>();
 
-                await Task.Run(() =>
+            await Task.Run(() =>
+            {
+                foreach (var fileName in filesNamesStrArray) FileList.Add(fileName);
+                while (Start)
                 {
-                    foreach (var fileName in filesNamesStrArray) FileList.Add(fileName);
-                    while (Start)
+                    filesNamesStrArray = Directory.GetFiles(this.TargetPathTxtBox.Text, "*", SearchOption.TopDirectoryOnly).OrderBy(m => new FileInfo(m).CreationTime).ToArray<string>();
+                    foreach (var file in filesNamesStrArray)
                     {
-                        filesNamesStrArray = Directory.GetFiles(this.TargetPathTxtBox.Text, "*", SearchOption.TopDirectoryOnly).OrderBy(m => new FileInfo(m).CreationTime).ToArray<string>();
-                        if (filesNamesStrArray.Count() > FileList.Count)  
+                        var sourceFile = Path.Combine(sourceDir, Path.GetFileName(file));
+                        var targetFile = Path.Combine(targetDir, Path.GetFileName(file));
+                        if (!File.Exists(targetFile)){
 
-                        //Is not safecheck to prove only the filenumber but the filenames
-                        //find a way to return a array of filename differences - Compare 2 array of  and return A - B
-
-                        {
-                            var dif = filesNamesStrArray.Except(FileList).First().ToString();
-                            var sourceFile = Path.Combine(sourceDir, Path.GetFileName(dif));
-                            var targetFile = Path.Combine(targetDir, Path.GetFileName(dif));
                             var btArr = new byte[BufferSize];
-                            inStream = new FileStream(sourceFile, FileMode.Open, FileAccess.Read);
-                            outStream = new FileStream(targetFile, FileMode.OpenOrCreate, FileAccess.Write);
+
                             try
                             {
+                                inStream = new FileStream(sourceFile, FileMode.Open, FileAccess.Read);
+                                outStream = new FileStream(targetFile, FileMode.OpenOrCreate, FileAccess.Write);
                                 //File.Copy(sourceFile, targetFile , true);
                                 var readRes = inStream.ReadAsync(btArr, offset: 0, count: BufferSize);
                                 while (readRes.Result > 0)
                                 {
                                     int counter = 0;
-                                    while ( (btArr[counter] != 0) & (counter <= BufferSize ) )
+                                    while ((btArr[counter] != 0) & (counter <= BufferSize))
                                     {
                                         outStream.WriteByte(btArr[counter]);
                                         counter++;
@@ -88,26 +86,18 @@ namespace ShortLifeFileCapture.Forms
                                     readRes = inStream.ReadAsync(btArr, offset: 0, count: BufferSize);
                                 }
                                 FileList.Add(filesNamesStrArray.Last());
-                            }
-                            catch (Exception)
-                            {
-                                throw;
-                            }
-                            finally
-                            {
                                 inStream.Close();
                                 outStream.Close();
                             }
-                        }
-                        //else if (filesNamesStrArray.Count() < FileList.Count)
-                        //{
-                        //    //reinitialize the list of files stored in FileList
-                        //    FileList.Clear();
-                        //    foreach (var fileName in filesNamesStrArray) FileList.Add(fileName);
-                        //}
+                            catch (Exception)
+                            {
+                                //throw;
+                            }
 
+                        }
                     }
-                });
+                }
+            });
         }
 
 

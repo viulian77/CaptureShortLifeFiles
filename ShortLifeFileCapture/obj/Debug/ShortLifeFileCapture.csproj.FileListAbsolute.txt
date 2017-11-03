@@ -17,3 +17,13 @@ G:\work\C#\SLFC\ShortLifeFileCapture\obj\Debug\ShortLifeFileCapture.csproj.Gener
 G:\work\C#\SLFC\ShortLifeFileCapture\obj\Debug\ShortLifeFileCapture.csproj.CoreCompileInputs.cache
 G:\work\C#\SLFC\ShortLifeFileCapture\obj\Debug\ShortLifeFileCapture.exe
 G:\work\C#\SLFC\ShortLifeFileCapture\obj\Debug\ShortLifeFileCapture.pdb
+D:\work\SLFC\ShortLifeFileCapture\obj\Debug\ShortLifeFileCapture.csprojResolveAssemblyReference.cache
+D:\work\SLFC\ShortLifeFileCapture\obj\Debug\ShortLifeFileCapture.Forms.MonitorDir.resources
+D:\work\SLFC\ShortLifeFileCapture\obj\Debug\ShortLifeFileCapture.Properties.Resources.resources
+D:\work\SLFC\ShortLifeFileCapture\obj\Debug\ShortLifeFileCapture.csproj.GenerateResource.Cache
+D:\work\SLFC\ShortLifeFileCapture\obj\Debug\ShortLifeFileCapture.csproj.CoreCompileInputs.cache
+D:\work\SLFC\ShortLifeFileCapture\obj\Debug\ShortLifeFileCapture.exe
+D:\work\SLFC\ShortLifeFileCapture\obj\Debug\ShortLifeFileCapture.pdb
+D:\work\SLFC\ShortLifeFileCapture\bin\Debug\ShortLifeFileCapture.exe.config
+D:\work\SLFC\ShortLifeFileCapture\bin\Debug\ShortLifeFileCapture.exe
+D:\work\SLFC\ShortLifeFileCapture\bin\Debug\ShortLifeFileCapture.pdb
