@@ -13,14 +13,18 @@ namespace ShortLifeFileCapture.Forms
 {
     public partial class MonitorDir : Form
     {
+        string sourceDir = @"C:\data";
+        string targetDir = @"C:\temp\copied";
         bool Start = false;
+        const int BufferSize = 60 * 1024;
+        
 
         List<String> FileList = new List<string>();
         
         public MonitorDir()
         {
             InitializeComponent();
-            TargetPathTxtBox.Text = "C:\\temp";
+            TargetPathTxtBox.Text = sourceDir;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -32,27 +36,61 @@ namespace ShortLifeFileCapture.Forms
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private async void StartStopBtn_Click(object sender, EventArgs e)
         {
-            var curDir = TargetPathTxtBox.Text;
-            if (Start == false)
-                Start = true;
-            else
-                Start = false;
-            var files = Directory.GetFiles(this.TargetPathTxtBox.Text, "*", SearchOption.TopDirectoryOnly).OrderBy(f => new FileInfo(f).CreationTime);
-            foreach (var file in files ) { FileList.Add(file); }
-            while (Start)
-            {
-                files = Directory.GetFiles(this.TargetPathTxtBox.Text, "*", SearchOption.TopDirectoryOnly).OrderBy(f => new FileInfo(f).CreationTime);
-                if ( files.Count() != FileList.Count)
-                {
-                    // Copy file in temp
-                    File.Copy(Path.Combine(curDir, files.Last()), Path.Combine("C:\\temp", files.Last()),true);
-                    FileList.Add(files.Last());
-                }
-                    
-            }
 
+            string[] filesNamesStrArray;
+            sourceDir = TargetPathTxtBox.Text;
+            if (Start == false)
+            {
+                Start = true;
+                StartStopBtn.Text = "Running";
+            }
+            else
+            {
+                Start = false;
+                StartStopBtn.Text = "Not Running";
+            }
+            FileStream f, g;
+            filesNamesStrArray = Directory.GetFiles(this.TargetPathTxtBox.Text, "*", SearchOption.TopDirectoryOnly).ToArray<string>(); //.OrderBy(f => new FileInfo(f).CreationTime).ToArray<string>();
+
+                await Task.Run(() =>
+                {
+                    foreach (var fileName in filesNamesStrArray) FileList.Add(fileName);
+                    while (Start)
+                    {
+                        filesNamesStrArray = Directory.GetFiles(this.TargetPathTxtBox.Text, "*", SearchOption.TopDirectoryOnly).ToArray<string>(); //.OrderBy(f => new FileInfo(f).CreationTime).ToArray<string>();
+                        if (filesNamesStrArray.Count() != FileList.Count)
+                        {
+                            var sourceFile = Path.Combine(sourceDir, filesNamesStrArray.Last());
+                            var targetFile = Path.Combine(targetDir, Path.GetFileName(filesNamesStrArray.Last()).ToString());
+                            var btArr = new byte[BufferSize];
+                            f = new FileStream(sourceFile, FileMode.Open, FileAccess.Read);
+                            g = new FileStream(targetFile, FileMode.Create, FileAccess.Write);
+                            try
+                            {
+                                //File.Copy(sourceFile, targetFile , true);
+                                var readRes = f.ReadAsync(btArr, offset: 0, count: BufferSize);
+                                do
+                                {
+                                    g.WriteAsync(btArr, offset: 0, count: BufferSize);
+                                } while ( readRes.Result > 0 );
+
+                                FileList.Add(filesNamesStrArray.Last());
+                            }
+                            catch (Exception)
+                            {
+                                throw;
+                            }
+                            finally
+                            {
+                                f.Close();
+                                g.Close();
+                            }
+                        }
+
+                    }
+                });
         }
     }
 }

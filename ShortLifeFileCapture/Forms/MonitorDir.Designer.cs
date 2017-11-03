@@ -63,7 +63,7 @@ namespace ShortLifeFileCapture.Forms
             this.StartStopBtn.TabIndex = 2;
             this.StartStopBtn.Text = "Start Monitoring";
             this.StartStopBtn.UseVisualStyleBackColor = true;
-            this.StartStopBtn.Click += new System.EventHandler(this.button2_Click);
+            this.StartStopBtn.Click += new System.EventHandler(this.StartStopBtn_Click);
             // 
             // TargetDirBtn
             // 
