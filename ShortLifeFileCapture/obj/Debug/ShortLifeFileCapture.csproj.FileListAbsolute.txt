@@ -17,4 +17,3 @@ G:\work\C#\SLFC\ShortLifeFileCapture\obj\Debug\ShortLifeFileCapture.csproj.Gener
 G:\work\C#\SLFC\ShortLifeFileCapture\obj\Debug\ShortLifeFileCapture.csproj.CoreCompileInputs.cache
 G:\work\C#\SLFC\ShortLifeFileCapture\obj\Debug\ShortLifeFileCapture.exe
 G:\work\C#\SLFC\ShortLifeFileCapture\obj\Debug\ShortLifeFileCapture.pdb
-G:\work\C#\SLFC\ShortLifeFileCapture\obj\Debug\ShortLifeFileCapture.csprojResolveAssemblyReference.cache

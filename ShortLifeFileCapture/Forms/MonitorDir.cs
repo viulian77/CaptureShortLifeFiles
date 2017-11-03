@@ -51,31 +51,38 @@ namespace ShortLifeFileCapture.Forms
                 Start = false;
                 StartStopBtn.Text = "Not Running";
             }
-            FileStream f, g;
-            filesNamesStrArray = Directory.GetFiles(this.TargetPathTxtBox.Text, "*", SearchOption.TopDirectoryOnly).ToArray<string>(); //.OrderBy(f => new FileInfo(f).CreationTime).ToArray<string>();
+            FileStream inStream, outStream;
+            filesNamesStrArray = Directory.GetFiles(this.TargetPathTxtBox.Text, "*", SearchOption.TopDirectoryOnly).OrderBy(m => new FileInfo(m).CreationTime).ToArray<string>();
 
                 await Task.Run(() =>
                 {
                     foreach (var fileName in filesNamesStrArray) FileList.Add(fileName);
                     while (Start)
                     {
-                        filesNamesStrArray = Directory.GetFiles(this.TargetPathTxtBox.Text, "*", SearchOption.TopDirectoryOnly).ToArray<string>(); //.OrderBy(f => new FileInfo(f).CreationTime).ToArray<string>();
+                        filesNamesStrArray = Directory.GetFiles(this.TargetPathTxtBox.Text, "*", SearchOption.TopDirectoryOnly).OrderBy(m => new FileInfo(m).CreationTime).ToArray<string>();
                         if (filesNamesStrArray.Count() != FileList.Count)
                         {
-                            var sourceFile = Path.Combine(sourceDir, filesNamesStrArray.Last());
-                            var targetFile = Path.Combine(targetDir, Path.GetFileName(filesNamesStrArray.Last()).ToString());
+                            var dif = filesNamesStrArray.Except(FileList).First().ToString();
+                            var sourceFile = Path.Combine(sourceDir, Path.GetFileName(dif));
+                            var targetFile = Path.Combine(targetDir, Path.GetFileName(dif));
                             var btArr = new byte[BufferSize];
-                            f = new FileStream(sourceFile, FileMode.Open, FileAccess.Read);
-                            g = new FileStream(targetFile, FileMode.Create, FileAccess.Write);
+                            inStream = new FileStream(sourceFile, FileMode.Open, FileAccess.Read);
+                            outStream = new FileStream(targetFile, FileMode.OpenOrCreate, FileAccess.Write);
                             try
                             {
                                 //File.Copy(sourceFile, targetFile , true);
-                                var readRes = f.ReadAsync(btArr, offset: 0, count: BufferSize);
-                                do
+                                var readRes = inStream.ReadAsync(btArr, offset: 0, count: BufferSize);
+                                while (readRes.Result > 0)
                                 {
-                                    g.WriteAsync(btArr, offset: 0, count: BufferSize);
-                                } while ( readRes.Result > 0 );
-
+                                    int counter = 0;
+                                    while ( (btArr[counter] != 0) & (counter <= BufferSize ) )
+                                    {
+                                        outStream.WriteByte(btArr[counter]);
+                                        counter++;
+                                    }
+                                    //outStream.WriteAsync(btArr, offset: 0, count: BufferSize);
+                                    readRes = inStream.ReadAsync(btArr, offset: 0, count: BufferSize);
+                                }
                                 FileList.Add(filesNamesStrArray.Last());
                             }
                             catch (Exception)
@@ -84,13 +91,16 @@ namespace ShortLifeFileCapture.Forms
                             }
                             finally
                             {
-                                f.Close();
-                                g.Close();
+                                inStream.Close();
+                                outStream.Close();
                             }
                         }
 
                     }
                 });
         }
+
+
+        
     }
 }
